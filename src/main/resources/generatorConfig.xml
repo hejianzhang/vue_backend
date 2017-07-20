@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
     <classPathEntry
-            location="D:\\Documents\\Tencent Files\\675445127\\FileRecv\\mysql-connector-java-5.1.35.jar"/>
+            location="mysql-connector-java-5.1.35.jar"/>
     <context id="my" defaultModelType="flat" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressDate" value="false"/>
@@ -13,8 +13,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.41.63:3306/operation" userId="admin"
-                        password="admin1309"/>
+                        connectionURL="jdbc:mysql://localhost:3306/sys" userId="root"
+                        password="06055034"/>
 
         <javaModelGenerator targetPackage="com.hejianzhang.model" targetProject="src\main\java\">
             <property name="enableSubPackages" value="true"/>
