@@ -13,8 +13,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/sys" userId="root"
-                        password="06055034"/>
+                        connectionURL="jdbc:mysql://192.168.44.68:3306/sys" userId="admin"
+                        password="admin1309"/>
 
         <javaModelGenerator targetPackage="com.hejianzhang.model" targetProject="src\main\java\">
             <property name="enableSubPackages" value="true"/>
@@ -34,7 +34,7 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>-->
 
-        <table tableName="t_user" domainObjectName="user"
+        <table tableName="t_testcases" domainObjectName="testcases"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

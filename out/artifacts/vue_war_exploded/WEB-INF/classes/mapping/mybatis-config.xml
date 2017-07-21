@@ -6,5 +6,6 @@
     <mappers>
 
         <mapper resource="mapping/userMapper.xml"/>
+        <mapper resource="mapping/testcasesMapper.xml"/>
     </mappers>
 </configuration>

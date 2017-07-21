@@ -14,12 +14,17 @@
     BrokerID, UserID, TradingDay, UserName, Password, UserType, IsActive
   </sql>
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
-    select 
+  select
+  <include refid="Base_Column_List" />
+  from t_user
+  where BrokerID = #{brokerid,jdbcType=VARCHAR}
+  and UserID = #{userid,jdbcType=VARCHAR}
+  and TradingDay = #{tradingday,jdbcType=VARCHAR}
+</select>
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from t_user
-    where BrokerID = #{brokerid,jdbcType=VARCHAR}
-      and UserID = #{userid,jdbcType=VARCHAR}
-      and TradingDay = #{tradingday,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from t_user
