@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.testsceneMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.testscene">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="TestSuite" jdbcType="VARCHAR" property="testsuite" />
+    <result column="TestSuiteDesc" jdbcType="VARCHAR" property="testsuitedesc" />
+    <result column="TestSuiteData" jdbcType="VARCHAR" property="testsuitedata" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, TestSuite, TestSuiteDesc, TestSuiteData
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_testscene
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_testscene
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_testscene
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hejianzhang.model.testscene">
+    insert into t_testscene (Id, TestSuite, TestSuiteDesc, 
+      TestSuiteData)
+    values (#{id,jdbcType=INTEGER}, #{testsuite,jdbcType=VARCHAR}, #{testsuitedesc,jdbcType=VARCHAR}, 
+      #{testsuitedata,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.testscene">
+    insert into t_testscene
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="testsuite != null">
+        TestSuite,
+      </if>
+      <if test="testsuitedesc != null">
+        TestSuiteDesc,
+      </if>
+      <if test="testsuitedata != null">
+        TestSuiteData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testsuite != null">
+        #{testsuite,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedesc != null">
+        #{testsuitedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedata != null">
+        #{testsuitedata,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.testscene">
+    update t_testscene
+    <set>
+      <if test="testsuite != null">
+        TestSuite = #{testsuite,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedesc != null">
+        TestSuiteDesc = #{testsuitedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedata != null">
+        TestSuiteData = #{testsuitedata,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.testscene">
+    update t_testscene
+    set TestSuite = #{testsuite,jdbcType=VARCHAR},
+      TestSuiteDesc = #{testsuitedesc,jdbcType=VARCHAR},
+      TestSuiteData = #{testsuitedata,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
