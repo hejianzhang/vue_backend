@@ -8,5 +8,6 @@
         <mapper resource="mapping/userMapper.xml"/>
         <mapper resource="mapping/testcasesMapper.xml"/>
         <mapper resource="mapping/testsceneMapper.xml"/>
+        <mapper resource="mapping/exResultsMapper.xml"/>
     </mappers>
 </configuration>

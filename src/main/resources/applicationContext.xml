@@ -56,6 +56,10 @@
         <property name="mapperInterface" value="com.hejianzhang.dao.testsceneMapper"></property>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
+    <bean id="exResultsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.hejianzhang.dao.exResultsMapper"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
     <!--给userDao注入模板-->
     <!--<bean id="userDao" class="com.test.model.UserDaoImp">-->
         <!--<property name="jdbcTemplate" ref="jdbcTemplate"></property>-->
