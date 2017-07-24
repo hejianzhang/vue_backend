@@ -1,7 +1,7 @@
 package com.hejianzhang.dao;
 
 import com.hejianzhang.model.exResults;
-
+import java.util.List;
 
 
 
@@ -13,6 +13,7 @@ public interface exResultsMapper {
     int insertSelective(exResults record);
 
     exResults selectByPrimaryKey(Integer id);
+    List<exResults> selectAll();
 
     int updateByPrimaryKeySelective(exResults record);
 
