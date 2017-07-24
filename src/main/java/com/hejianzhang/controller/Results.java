@@ -36,7 +36,7 @@ public class Results {
         String ids=(String)JSONObject.parseObject(code).get("ids");
         String time=(String)JSONObject.parseObject(code).get("time");
         String[] id=ids.split(",");
-
+        Map<String,testcases> ss=new LinkedHashMap<String,testcases>();
         for(int i=0;i<id.length;i++){
             JSONObject m=new JSONObject();
             com.hejianzhang.model.exResults e=new com.hejianzhang.model.exResults();
@@ -58,6 +58,8 @@ public class Results {
                 }
             }
             List<JSONObject> testcasesArray = new ArrayList<JSONObject>();
+
+            int tt=0;
             for(testcases l:selectCases){
                 JSONObject t=new JSONObject();
                 JSONObject j=new JSONObject();
@@ -66,6 +68,11 @@ public class Results {
                 t.put("name",l.getCasedesc());
                 t.put("testdata",j);
                 testcasesArray.add(t);
+                String zz=time+','+ts.getId()+','+tt+','+l.getId();
+
+                tt++;
+                ss.put(zz,testcases.selectByPrimaryKey(l.getId()));
+
             }
             m.put("name",ts.getTestsuitedesc());
             m.put("data",testcasesArray);
