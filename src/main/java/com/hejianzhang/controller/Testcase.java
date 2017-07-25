@@ -57,7 +57,9 @@ public class Testcase {
     public String selectMulIds(@RequestBody String code) {
 //      String[] id=(String) (JSONObject.parseObject(code).get("ids"))
       String s=(String)JSONObject.parseObject(code).get("ids");
-
+      if(s.equals("")){
+          return null;
+      }
       int length=s.split(",").length;
       Long[] ids=new Long[length];
       for(int i=0;i<length;i++){
