@@ -3,6 +3,7 @@ package com.hejianzhang.controller;
 /**
  * Created by hejianzhang on 2017/7/24.
  */
+import com.hejianzhang.thread.MessageHandler;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -62,11 +63,11 @@ public class Results {
             int tt=0;
             for(testcases l:selectCases){
                 JSONObject t=new JSONObject();
-                JSONObject j=new JSONObject();
-                j.put("result","no running");
-                j.put("message","null");
+//                JSONObject j=new JSONObject();
+//                j.put("result","no running");
+//                j.put("message","null");
                 t.put("name",l.getCasedesc());
-                t.put("testdata",j);
+                t.put("testdata","no running");
                 testcasesArray.add(t);
                 String zz=time+','+ts.getId()+','+tt+','+l.getId();
 
@@ -77,8 +78,16 @@ public class Results {
             m.put("name",ts.getTestsuitedesc());
             m.put("data",testcasesArray);
             e.setCasestatus(m.toJSONString());
+
             exResultsMapper.insert(e);
         }
+       for(String s:ss.keySet()) {
+           Map<String,testcases> ss1=new LinkedHashMap<String,testcases>();
+           ss1.put(s,ss.get(s));
+           MessageHandler.getHandler().handleMessage(ss1);
+       }
+//        messageHandler.init();
+
 
 
 //        int m = testcases.insert(order);
@@ -105,9 +114,27 @@ public class Results {
             }
         }
         JSONArray jsonArray=new JSONArray();
+
         for (String  key : map.keySet()) {
+            int total=0;
+            int fail=0;
+            int success=0;
             JSONObject j=new JSONObject();
-            j.put(key,map.get(key));
+            for( JSONObject js:map.get(key)){
+                for(String i:js.keySet()){
+                    if(JSON.toJSONString(js.get(i)).indexOf("testdata") != -1){
+                        String[] str1=JSON.toJSONString(js.get(i)).split("testdata");
+                        total=total+str1.length-1;
+                    }
+                    if(JSON.toJSONString(js.get(i)).indexOf("success") != -1){
+                        String[] str2=JSON.toJSONString(js.get(i)).split("success");
+                        success=success+str2.length-1;
+                    }
+
+                }
+            }
+            fail=total-success;
+            j.put(key+"          ×ÜÊý  "+total+"     Ê§°Ü  "+fail,map.get(key));
             jsonArray.add(j);
         }
 //        List<JSONObject> array=new ArrayList<JSONObject>();

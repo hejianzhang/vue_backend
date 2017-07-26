@@ -13,6 +13,7 @@ public interface exResultsMapper {
     int insertSelective(exResults record);
 
     exResults selectByPrimaryKey(Integer id);
+    exResults selectBytimeandSceneid(String updatetime,String sceneid);
     List<exResults> selectAll();
 
     int updateByPrimaryKeySelective(exResults record);

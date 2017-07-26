@@ -16,6 +16,12 @@
     from t_exResults
     where Id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectBytimeandSceneid"  resultMap="BaseResultMap">
+    select
+    *
+    from t_exResults
+    where UpdateTime = #{0} and SceneId=#{1}
+  </select>
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
