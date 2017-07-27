@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Administrator on 2017-07-25.
  */
-
+@Component
 public class MessageHandler implements Runnable,Handler{
 
     private static MessageHandler handler = new MessageHandler();

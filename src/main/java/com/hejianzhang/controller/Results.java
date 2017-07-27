@@ -99,7 +99,7 @@ public class Results {
     public String  getAll() {
           List<exResults> list=exResultsMapper.selectAll();
 
-        Map<String,List<JSONObject> > map=new HashMap<String, List<JSONObject>>();
+        Map<String,List<JSONObject> > map=new LinkedHashMap<String, List<JSONObject>>();
         for(exResults l: list){
             if(map.get(l.getUpdatetime())==null){
                 JSONObject j=new JSONObject();
@@ -121,14 +121,25 @@ public class Results {
             int success=0;
             JSONObject j=new JSONObject();
             for( JSONObject js:map.get(key)){
+                int mintotal=0;
+                int minfail=0;
+                int minsuccess=0;
                 for(String i:js.keySet()){
                     if(JSON.toJSONString(js.get(i)).indexOf("testdata") != -1){
                         String[] str1=JSON.toJSONString(js.get(i)).split("testdata");
                         total=total+str1.length-1;
+                        mintotal=mintotal+str1.length-1;
                     }
                     if(JSON.toJSONString(js.get(i)).indexOf("success") != -1){
                         String[] str2=JSON.toJSONString(js.get(i)).split("success");
                         success=success+str2.length-1;
+                        minsuccess=minsuccess+str2.length-1;
+                    }
+                    JSONObject mm=(JSONObject)(js.get(i));
+                    for(String s:mm.keySet()){
+                        if(s.equals("name")){
+                            mm.put("name",mm.get("name")+"  ×ÜÊý  "+mintotal+"    Ê§°Ü  "+(mintotal-minsuccess));
+                        }
                     }
 
                 }
@@ -148,6 +159,15 @@ public class Results {
 //               j.put(l.getSceneid(),JSON.parseObject(l.getCasestatus()));
 //               array.add(j);
 //           }
-           return jsonArray.toString();
+        JSONArray jsonArray1=new JSONArray();
+        int length=jsonArray.size();
+        if(length>10){
+            length=10;
+        }
+        for(int i=0;i<length;i++){
+            jsonArray1.add(jsonArray.get(i));
+        }
+        return jsonArray1.toString();
+
     }
 }
