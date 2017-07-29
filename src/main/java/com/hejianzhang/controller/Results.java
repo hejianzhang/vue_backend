@@ -75,7 +75,7 @@ public class Results {
                 ss.put(zz,testcases.selectByPrimaryKey(l.getId()));
 
             }
-            m.put("name",ts.getTestsuitedesc());
+            m.put("name",ts.getTestsuite());
             m.put("data",testcasesArray);
             e.setCasestatus(m.toJSONString());
 
@@ -110,7 +110,9 @@ public class Results {
             }else{
                 JSONObject j=new JSONObject();
                 j.put(l.getSceneid(),JSON.parseObject(l.getCasestatus()));
-                map.get(l.getUpdatetime()).add(j);
+                List<JSONObject> array=map.get(l.getUpdatetime());
+                array.add(j);
+                map.put(l.getUpdatetime(),array);
             }
         }
         JSONArray jsonArray=new JSONArray();
@@ -120,7 +122,11 @@ public class Results {
             int fail=0;
             int success=0;
             JSONObject j=new JSONObject();
-            for( JSONObject js:map.get(key)){
+
+            for(int tt=map.get(key).size()-1;tt>=0;tt--){
+                JSONObject js=map.get(key).get(tt);
+//            }
+//            for( JSONObject js:map.get(key)){
                 int mintotal=0;
                 int minfail=0;
                 int minsuccess=0;
@@ -145,7 +151,11 @@ public class Results {
                 }
             }
             fail=total-success;
-            j.put(key+"          总数  "+total+"     失败  "+fail,map.get(key));
+            List<JSONObject> list11=new ArrayList<JSONObject>();
+            for(int tt=map.get(key).size()-1;tt>=0;tt--) {
+                list11.add(map.get(key).get(tt));
+            }
+            j.put(key+"          总数  "+total+"     失败  "+fail,list11);
             jsonArray.add(j);
         }
 //        List<JSONObject> array=new ArrayList<JSONObject>();
