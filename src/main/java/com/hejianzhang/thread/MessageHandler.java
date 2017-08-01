@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MessageHandler implements Runnable,Handler{
-
+    public final static ThreadLocal threadLocal = new ThreadLocal();
     private static MessageHandler handler = new MessageHandler();
 
     public static MessageHandler getHandler()
@@ -32,7 +32,7 @@ public class MessageHandler implements Runnable,Handler{
 
     public Map<String,testcases> msg=new HashMap<String, testcases>();
     private boolean                     run             = true;
-    private MessageHandler() {
+    public MessageHandler() {
         init();
     }
     public void init() {
@@ -53,7 +53,7 @@ public class MessageHandler implements Runnable,Handler{
                 logger.info("11111111111111111111111111111111111");
                 msg = (LinkedHashMap<String,testcases>)msgList.poll(500, TimeUnit.MILLISECONDS);
                 if(msg!=null) {
-
+                    threadLocal.set(msg);
                     List<String> classname=new ArrayList<String>();
                     Set<String>  set=new HashSet<String>();
                     for (String s : msg.keySet()) {

@@ -24,6 +24,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/exResults")
 public class Results {
+    private final static ThreadLocal threadLocal = new ThreadLocal();
     @Autowired
     private testcasesMapper testcases;
     @Autowired
@@ -84,7 +85,19 @@ public class Results {
        for(String s:ss.keySet()) {
            Map<String,testcases> ss1=new LinkedHashMap<String,testcases>();
            ss1.put(s,ss.get(s));
-           MessageHandler.getHandler().handleMessage(ss1);
+           try {
+               Thread.sleep(1000);
+           }catch(Exception e){
+               e.printStackTrace();
+           }
+           MessageHandler handler = (MessageHandler)threadLocal.get();
+           if(handler == null)
+           {
+               MessageHandler messageHandler=new MessageHandler();
+               threadLocal.set(messageHandler);
+               handler = (MessageHandler)threadLocal.get();
+           }
+           handler.handleMessage(ss1);
        }
 //        messageHandler.init();
 

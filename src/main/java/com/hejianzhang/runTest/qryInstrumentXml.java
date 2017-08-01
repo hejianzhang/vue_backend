@@ -27,11 +27,11 @@ public class qryInstrumentXml {
     @Parameterized.Parameters
     public static Collection usernameData() {
         List<Map<String,testcases>> list=new ArrayList<Map<String, testcases>>();
-
-        for(String s:MessageHandler.getHandler().msg.keySet()){
-          if(MessageHandler.getHandler().msg.get(s).getCasename().equals("qryInstrumentXml")){
+        Map<String, testcases> msg = (Map<String, testcases>)MessageHandler.threadLocal.get();
+        for(String s:msg.keySet()){
+          if(msg.get(s).getCasename().equals("qryInstrumentXml")){
               Map<String,testcases> map=new HashMap<String, testcases>();
-              map.put(s,MessageHandler.getHandler().msg.get(s));
+              map.put(s,msg.get(s));
               list.add(map);
           }
         }
@@ -54,7 +54,7 @@ public class qryInstrumentXml {
             logger.info("aaaaaaaaaaaaaaaaaaaaaaa"+s);
         }
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         }catch(Exception e){
             e.printStackTrace();
         }
