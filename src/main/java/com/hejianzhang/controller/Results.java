@@ -69,6 +69,7 @@ public class Results {
 //                j.put("message","null");
                 t.put("name",l.getCasedesc());
                 t.put("testdata","no running");
+                t.put("input",l.getCaseinput());
                 testcasesArray.add(t);
                 String zz=time+','+ts.getId()+','+tt+','+l.getId();
 
