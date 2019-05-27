@@ -9,6 +9,25 @@ public class testscene {
 
     private String testsuitedata;
 
+    public String getCreateby() {
+        return createby;
+    }
+
+    public void setCreateby(String createby) {
+        this.createby = createby == null ? null : createby.trim();
+    }
+
+    private String createby;
+    public String getEnv() {
+        return env;
+    }
+
+    public void setEnv(String env) {
+        this.env = env == null ? null : env.trim();
+    }
+
+    private String env;
+
     public Integer getId() {
         return id;
     }

@@ -8,6 +8,15 @@
         <mapper resource="mapping/userMapper.xml"/>
         <mapper resource="mapping/testcasesMapper.xml"/>
         <mapper resource="mapping/testsceneMapper.xml"/>
+        <mapper resource="mapping/regresscasesMapper.xml"/>
+        <mapper resource="mapping/regressceneMapper.xml"/>
+        <mapper resource="mapping/regressMapper.xml"/>
         <mapper resource="mapping/exResultsMapper.xml"/>
+        <mapper resource="mapping/envMapper.xml"/>
+        <mapper resource="mapping/buildVersionMapper.xml"/>
+        <mapper resource="mapping/regresscasesResultMapper.xml"/>
+        <mapper resource="mapping/testresultsMapper.xml"/>
+
+
     </mappers>
 </configuration>

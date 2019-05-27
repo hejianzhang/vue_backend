@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.regresscasesMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.regresscases">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="casename" jdbcType="VARCHAR" property="casename" />
+    <result column="casedesc" jdbcType="VARCHAR" property="casedesc" />
+    <result column="caseinput" jdbcType="VARCHAR" property="caseinput" />
+    <result column="caseexpectresult" jdbcType="VARCHAR" property="caseexpectresult" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="regressuiteId" jdbcType="VARCHAR" property="regressuiteId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, casename, casedesc, caseinput, caseexpectresult,url, method,regressuiteId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_regresscases
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscases
+  </select>
+  <select id="selectbyRegressuiteid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscases
+    where regressuiteId = #{regressuiteId,jdbcType=INTEGER}
+  </select>
+  <select id="selectMulIds" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscases
+    where Id IN
+    <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_regresscases
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hejianzhang.model.regresscases">
+    insert into t_regresscases ( casename, casedesc,
+      caseinput, caseexpectresult, url,method,regressuiteId
+      )
+    values (#{casename,jdbcType=VARCHAR}, #{casedesc,jdbcType=VARCHAR},
+      #{caseinput,jdbcType=VARCHAR}, #{caseexpectresult,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{regressuiteId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.regresscases">
+    insert into t_regresscases
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="casename != null">
+        casename,
+      </if>
+      <if test="casedesc != null">
+        casedesc,
+      </if>
+      <if test="caseinput != null">
+        caseinput,
+      </if>
+      <if test="caseexpectresult != null">
+        caseexpectresult,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="regressuiteId != null">
+        regressuiteId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="casename != null">
+        #{casename,jdbcType=VARCHAR},
+      </if>
+      <if test="casedesc != null">
+        #{casedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseinput != null">
+        #{caseinput,jdbcType=VARCHAR},
+      </if>
+      <if test="caseexpectresult != null">
+        #{caseexpectresult,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="regressuiteId != null">
+        #{regressuiteId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.regresscases">
+    update t_regresscases
+    <set>
+      <if test="casename != null">
+        casename = #{casename,jdbcType=VARCHAR},
+      </if>
+      <if test="casedesc != null">
+        casedesc = #{casedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseinput != null">
+        caseinput = #{caseinput,jdbcType=VARCHAR},
+      </if>
+      <if test="caseexpectresult != null">
+        caseexpectresult = #{caseexpectresult,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        method = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="regressuiteId != null">
+        regressuiteId = #{regressuiteId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.regresscases">
+    update t_regresscases
+    set casename = #{casename,jdbcType=VARCHAR},
+      casedesc = #{casedesc,jdbcType=VARCHAR},
+      caseinput = #{caseinput,jdbcType=VARCHAR},
+      caseexpectresult = #{caseexpectresult,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      regressuiteId = #{regressuiteId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

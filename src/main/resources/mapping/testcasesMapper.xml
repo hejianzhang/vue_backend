@@ -5,11 +5,13 @@
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="CaseName" jdbcType="VARCHAR" property="casename" />
     <result column="CaseDesc" jdbcType="VARCHAR" property="casedesc" />
+    <result column="Url" jdbcType="VARCHAR" property="url" />
+    <result column="Method" jdbcType="VARCHAR" property="method" />
     <result column="CaseInput" jdbcType="VARCHAR" property="caseinput" />
     <result column="CaseExpectResult" jdbcType="VARCHAR" property="caseexpectresult" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, CaseName, CaseDesc, CaseInput, CaseExpectResult
+    Id, CaseName, CaseDesc,Url,Method, CaseInput, CaseExpectResult
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -36,9 +38,9 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hejianzhang.model.testcases">
-    insert into t_testcases ( CaseName, CaseDesc,
+    insert into t_testcases ( CaseName, CaseDesc,Method,Url,
       CaseInput, CaseExpectResult)
-    values ( #{casename,jdbcType=VARCHAR}, #{casedesc,jdbcType=VARCHAR},
+    values ( #{casename,jdbcType=VARCHAR}, #{casedesc,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
       #{caseinput,jdbcType=VARCHAR}, #{caseexpectresult,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hejianzhang.model.testcases">
@@ -52,6 +54,12 @@
       </if>
       <if test="casedesc != null">
         CaseDesc,
+      </if>
+      <if test="method != null">
+        Method,
+      </if>
+      <if test="url != null">
+        Url,
       </if>
       <if test="caseinput != null">
         CaseInput,
@@ -70,6 +78,12 @@
       <if test="casedesc != null">
         #{casedesc,jdbcType=VARCHAR},
       </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
       <if test="caseinput != null">
         #{caseinput,jdbcType=VARCHAR},
       </if>
@@ -87,6 +101,12 @@
       <if test="casedesc != null">
         CaseDesc = #{casedesc,jdbcType=VARCHAR},
       </if>
+      <if test="url != null">
+        Method = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        Method = #{method,jdbcType=VARCHAR},
+      </if>
       <if test="caseinput != null">
         CaseInput = #{caseinput,jdbcType=VARCHAR},
       </if>
@@ -100,6 +120,8 @@
     update t_testcases
     set CaseName = #{casename,jdbcType=VARCHAR},
       CaseDesc = #{casedesc,jdbcType=VARCHAR},
+      Url = #{url,jdbcType=VARCHAR},
+      Method = #{method,jdbcType=VARCHAR},
       CaseInput = #{caseinput,jdbcType=VARCHAR},
       CaseExpectResult = #{caseexpectresult,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}

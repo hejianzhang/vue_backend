@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.regressceneMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.regresscene">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="testsuite" jdbcType="VARCHAR" property="testsuite" />
+    <result column="testsuitedesc" jdbcType="VARCHAR" property="testsuitedesc" />
+    <result column="testsuitedata" jdbcType="VARCHAR" property="testsuitedata" />
+    <result column="env" jdbcType="VARCHAR" property="env" />
+    <result column="regressid" jdbcType="VARCHAR" property="regressid" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, testsuite, testsuitedesc, testsuitedata, env, createby,regressid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscene
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByregressid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscene
+    where regressid = #{regressid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscene
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_regresscene
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hejianzhang.model.regresscene">
+    insert into t_regresscene ( testsuite, testsuitedesc,
+      testsuitedata, env, createby,regressid
+      )
+    values (#{testsuite,jdbcType=VARCHAR}, #{testsuitedesc,jdbcType=VARCHAR},
+      #{testsuitedata,jdbcType=VARCHAR}, #{env,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR},#{regressid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.regresscene">
+    insert into t_regresscene
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="testsuite != null">
+        testsuite,
+      </if>
+      <if test="testsuitedesc != null">
+        testsuitedesc,
+      </if>
+      <if test="testsuitedata != null">
+        testsuitedata,
+      </if>
+      <if test="regressid != null">
+        regressid,
+      </if>
+      <if test="env != null">
+        env,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="testsuite != null">
+        #{testsuite,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedesc != null">
+        #{testsuitedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedata != null">
+        #{testsuitedata,jdbcType=VARCHAR},
+      </if>
+      <if test="env != null">
+        #{env,jdbcType=VARCHAR},
+      </if>
+      <if test="regressid != null">
+        #{regressid,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.regresscene">
+    update t_regresscene
+    <set>
+      <if test="testsuite != null">
+        testsuite = #{testsuite,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedesc != null">
+        testsuitedesc = #{testsuitedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="testsuitedata != null">
+        testsuitedata = #{testsuitedata,jdbcType=VARCHAR},
+      </if>
+      <if test="env != null">
+        env = #{env,jdbcType=VARCHAR},
+      </if>
+      <if test="regressid != null">
+        regressid = #{regressid,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.regresscene">
+    update t_regresscene
+    set testsuite = #{testsuite,jdbcType=VARCHAR},
+      testsuitedesc = #{testsuitedesc,jdbcType=VARCHAR},
+      testsuitedata = #{testsuitedata,jdbcType=VARCHAR},
+      env = #{env,jdbcType=VARCHAR},
+      regressid = #{regressid,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

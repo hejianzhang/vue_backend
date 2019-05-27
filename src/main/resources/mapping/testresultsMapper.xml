@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.testresultsMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.testresults">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
+    <result column="regressid" jdbcType="VARCHAR" property="regressid" />
+    <result column="programid" jdbcType="VARCHAR" property="programid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, updatetime, regressid, programid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_TestResults
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_TestResults
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hejianzhang.model.testresults">
+    insert into t_TestResults (id, updatetime, regressid, 
+      programid)
+    values (#{id,jdbcType=INTEGER}, #{updatetime,jdbcType=VARCHAR}, #{regressid,jdbcType=VARCHAR}, 
+      #{programid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.testresults">
+    insert into t_TestResults
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="regressid != null">
+        regressid,
+      </if>
+      <if test="programid != null">
+        programid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="regressid != null">
+        #{regressid,jdbcType=VARCHAR},
+      </if>
+      <if test="programid != null">
+        #{programid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.testresults">
+    update t_TestResults
+    <set>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="regressid != null">
+        regressid = #{regressid,jdbcType=VARCHAR},
+      </if>
+      <if test="programid != null">
+        programid = #{programid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.testresults">
+    update t_TestResults
+    set updatetime = #{updatetime,jdbcType=VARCHAR},
+      regressid = #{regressid,jdbcType=VARCHAR},
+      programid = #{programid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

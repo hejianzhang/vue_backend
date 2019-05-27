@@ -9,9 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hejianzhang.dao.testcasesMapper;
 import com.hejianzhang.dao.testsceneMapper;
 import com.hejianzhang.dao.userMapper;
-import com.hejianzhang.model.testcases;
 import com.hejianzhang.model.testscene;
-import com.hejianzhang.model.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +42,8 @@ public class Testscene {
             m.put("TestSuite", s1.getTestsuite());
             m.put("TestSuiteDesc", s1.getTestsuitedesc());
             m.put("TestSuiteData", s1.getTestsuitedata());
+            m.put("Env",s1.getEnv());
+            m.put("Createby",s1.getCreateby());
             testsceneArray.add(m);
         }
         JSONObject all = new JSONObject();
@@ -57,54 +57,11 @@ public class Testscene {
 //        return "hello";
     }
 
-//    @CrossOrigin(origins = "*", maxAge = 3600)
-//    @ResponseBody
-//    @RequestMapping(value = "selectAll", produces = "text/html;charset=UTF-8")
-//    public String selectAll() {
-//        JSONArray testcasesArray = new JSONArray();
-//        List<testcases> allcases = testcases.selectAll();
-//        for (testcases s1 : allcases) {
-//            JSONObject i=new JSONObject();
-//            JSONObject j=new JSONObject();
-//            if(s1.getCaseinput().contains(":")) {
-//                i = JSON.parseObject(s1.getCaseinput());
-//            }
-//            if(s1.getCaseexpectresult().contains(":")) {
-//                j = JSON.parseObject(s1.getCaseexpectresult());
-//            }
-//            JSONObject m = new JSONObject();
-//            m.put("id", s1.getId());
-//            m.put("name", s1.getCasename());
-//            m.put("desc", s1.getCasedesc());
-//            m.put("input", i);
-//            m.put("expectResult", j);
-//            testcasesArray.add(m);
-//
-//        }
-//        JSONObject all = new JSONObject();
-//        all.put("password", "123456");
-//        all.put("userID", "0301");
-//        all.put("brokerID", "2016");
-//        all.put("spi", "tradespi");
-//        all.put("system", "NTSStock");
-//        all.put("testdata", testcasesArray);
-////        testcases t=new testcases();
-////        t.setCasename("aa");
-////        t.setCasedesc("23");
-////        t.setCaseinput("555");
-////        t.setCaseexpectresult("444");
-////        int i=testcases.insert(t);
-//        return all.toString();
-//
-////        return "hello";
-//    }
-//
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @ResponseBody
 @RequestMapping(value = "add", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 public String add(@RequestBody String code) {
-    int i = 1;
-    int j = 1;
     testscene order = JSON.parseObject(code, testscene.class);
     int m = testscene.insert(order);
     if (m == 1) {

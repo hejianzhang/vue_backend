@@ -9,6 +9,26 @@ public class testcases {
 
     private String caseinput;
 
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method == null ? null : method.trim();
+    }
+
+    private String method;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
+    }
+
+    private String url;
+
     private String caseexpectresult;
 
     public Integer getId() {

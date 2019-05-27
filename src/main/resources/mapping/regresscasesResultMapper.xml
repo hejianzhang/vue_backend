@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.regresscasesResultMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.regresscasesResult">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="casename" jdbcType="VARCHAR" property="casename" />
+    <result column="casedesc" jdbcType="VARCHAR" property="casedesc" />
+    <result column="caseinput" jdbcType="VARCHAR" property="caseinput" />
+    <result column="caseexpectresult" jdbcType="VARCHAR" property="caseexpectresult" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="regressuiteId" jdbcType="VARCHAR" property="regressuiteid" />
+    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
+    <result column="updateTime" jdbcType="VARCHAR" property="updatetime" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="buildVersion" jdbcType="INTEGER" property="buildversion" />
+  </resultMap>
+  <resultMap id="Process" type="com.hejianzhang.DTO.processDetailDTO">
+    <result column="testsuite" jdbcType="VARCHAR" property="testsuite" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="updateTime" jdbcType="VARCHAR" property="updateTime" />
+    <result column="casename" jdbcType="VARCHAR" property="casename" />
+  </resultMap>
+  <select id="showDetail" parameterType="java.lang.Integer" resultMap="Process">
+    select k.testsuite,m.result,m.updateTime,m.casename from t_regresscasesResult m,t_regresscene k where k.id=m.regressuiteId and regressuiteId in(select id from t_regresscene where regressid = #{regressid,jdbcType=INTEGER})
+    and m.buildVersion=(select buildVersion from t_regresscasesResult m,t_regresscene k where k.id=m.regressuiteId and regressuiteId in(select id from t_regresscene where regressid=#{regressid,jdbcType=INTEGER}) group by buildVersion desc limit 0,1)
+  </select>
+  <sql id="Base_Column_List">
+    id, casename, casedesc, caseinput, caseexpectresult,url, method, regressuiteId, createTime,
+    updateTime, result, buildVersion
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscasesResult
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByRegressId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscasesResult
+    where regressuiteId = #{regressuiteId,jdbcType=INTEGER}
+  </select>
+  <select id="selectBybuildVersion" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_regresscasesResult
+    where buildVersion = #{buildVersion,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_regresscasesResult
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hejianzhang.model.regresscasesResult">
+    insert into t_regresscasesResult (casename, casedesc,
+      caseinput, caseexpectresult, url,method,
+      regressuiteId, createTime, updateTime,
+      result, buildVersion)
+    values (#{casename,jdbcType=VARCHAR}, #{casedesc,jdbcType=VARCHAR},
+      #{caseinput,jdbcType=VARCHAR}, #{caseexpectresult,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR},
+      #{regressuiteid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR},
+      #{result,jdbcType=VARCHAR}, #{buildversion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.regresscasesResult">
+    insert into t_regresscasesResult
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="casename != null">
+        casename,
+      </if>
+      <if test="casedesc != null">
+        casedesc,
+      </if>
+      <if test="caseinput != null">
+        caseinput,
+      </if>
+      <if test="caseexpectresult != null">
+        caseexpectresult,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="regressuiteid != null">
+        regressuiteId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="buildversion != null">
+        buildVersion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="casename != null">
+        #{casename,jdbcType=VARCHAR},
+      </if>
+      <if test="casedesc != null">
+        #{casedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseinput != null">
+        #{caseinput,jdbcType=VARCHAR},
+      </if>
+      <if test="caseexpectresult != null">
+        #{caseexpectresult,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="regressuiteid != null">
+        #{regressuiteid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="buildversion != null">
+        #{buildversion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.regresscasesResult">
+    update t_regresscasesResult
+    <set>
+      <if test="casename != null">
+        casename = #{casename,jdbcType=VARCHAR},
+      </if>
+      <if test="casedesc != null">
+        casedesc = #{casedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseinput != null">
+        caseinput = #{caseinput,jdbcType=VARCHAR},
+      </if>
+      <if test="caseexpectresult != null">
+        caseexpectresult = #{caseexpectresult,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="regressuiteid != null">
+        regressuiteId = #{regressuiteid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="buildversion != null">
+        buildVersion = #{buildversion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.regresscasesResult">
+    update t_regresscasesResult
+    set casename = #{casename,jdbcType=VARCHAR},
+      casedesc = #{casedesc,jdbcType=VARCHAR},
+      caseinput = #{caseinput,jdbcType=VARCHAR},
+      caseexpectresult = #{caseexpectresult,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      regressuiteId = #{regressuiteid,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      buildVersion = #{buildversion,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

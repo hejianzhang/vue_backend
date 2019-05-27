@@ -7,13 +7,14 @@ import com.hejianzhang.dao.testcasesMapper;
 import com.hejianzhang.dao.userMapper;
 import com.hejianzhang.model.testcases;
 import com.hejianzhang.model.user;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.hejianzhang.zerocode.core.runner.MyTest;
 
 /**
  * Created by Administrator on 2017-02-27.
@@ -40,13 +41,6 @@ public class Testcase {
         m.put("desc", s1.getCasedesc());
         m.put("input", i);
         m.put("expectresult", j);
-        System.out.println("aaaaaaaaaaaaaaaaaaaa" + s1.getCasename());
-//        testcases t=new testcases();
-//        t.setCasename("aa");
-//        t.setCasedesc("23");
-//        t.setCaseinput("555");
-//        t.setCaseexpectresult("444");
-//        int i=testcases.insert(t);
         return m.toString();
 
 //        return "hello";
@@ -58,7 +52,7 @@ public class Testcase {
 //      String[] id=(String) (JSONObject.parseObject(code).get("ids"))
       String s=(String)JSONObject.parseObject(code).get("ids");
       if(s.equals("")){
-          return null;
+          return new JSONArray().toString();
       }
       int length=s.split(",").length;
       Long[] ids=new Long[length];
@@ -76,20 +70,14 @@ public class Testcase {
       }
         JSONArray testcasesArray = new JSONArray();
         for (testcases s1 : selectCases) {
-            JSONObject i=new JSONObject();
-            JSONObject j=new JSONObject();
-            if(s1.getCaseinput().contains(":")) {
-                i = JSON.parseObject(s1.getCaseinput());
-            }
-            if(s1.getCaseexpectresult().contains(":")) {
-                j = JSON.parseObject(s1.getCaseexpectresult());
-            }
             JSONObject m = new JSONObject();
             m.put("id", s1.getId());
             m.put("name", s1.getCasename());
             m.put("desc", s1.getCasedesc());
-            m.put("input", i);
-            m.put("expectResult", j);
+            m.put("url",s1.getUrl());
+            m.put("method",s1.getMethod());
+            m.put("input", s1.getCaseinput());
+            m.put("expectResult", s1.getCaseexpectresult());
             testcasesArray.add(m);
 
         }
@@ -99,53 +87,37 @@ public class Testcase {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
     @RequestMapping(value = "selectAll", produces = "text/html;charset=UTF-8")
-    public String selectAll() {
+    public String selectAll() throws Exception{
         JSONArray testcasesArray = new JSONArray();
         List<testcases> allcases = testcases.selectAll();
         for (testcases s1 : allcases) {
-            JSONObject i=new JSONObject();
-            JSONObject j=new JSONObject();
-            if(s1.getCaseinput().contains(":")) {
-                i = JSON.parseObject(s1.getCaseinput());
-            }
-            if(s1.getCaseexpectresult().contains(":")) {
-                j = JSON.parseObject(s1.getCaseexpectresult());
-            }
             JSONObject m = new JSONObject();
             m.put("id", s1.getId());
             m.put("name", s1.getCasename());
             m.put("desc", s1.getCasedesc());
-            m.put("input", i);
-            m.put("expectResult", j);
+            m.put("url",s1.getUrl());
+            m.put("method",s1.getMethod());
+            m.put("input", s1.getCaseinput());
+            m.put("expectResult", s1.getCaseexpectresult());
             testcasesArray.add(m);
 
         }
         JSONObject all = new JSONObject();
-        all.put("password", "123456");
-        all.put("userID", "0301");
-        all.put("brokerID", "2016");
-        all.put("spi", "tradespi");
-        all.put("system", "NTSStock");
         all.put("testdata", testcasesArray);
-//        testcases t=new testcases();
-//        t.setCasename("aa");
-//        t.setCasedesc("23");
-//        t.setCaseinput("555");
-//        t.setCaseexpectresult("444");
-//        int i=testcases.insert(t);
         return all.toString();
-
-//        return "hello";
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
     @RequestMapping(value = "add", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
     public void add(@RequestBody String code) {
-        int i = 1;
-        int j = 1;
         testcases order = JSON.parseObject(code, testcases.class);
-        int m = testcases.insert(order);
+        if(testcases.selectByPrimaryKey(order.getId())==null){
+            testcases.insert(order);
+        }else{
+            testcases.updateByPrimaryKey(order);
+        }
+
 
     }
 

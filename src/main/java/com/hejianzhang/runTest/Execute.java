@@ -22,9 +22,9 @@ import java.util.Map;
 public class Execute {
     //@Autowired
     //private static com.hejianzhang.dao.exResultsMapper exResultsMapper;
-    public static void main(String[] args) {
-        run(JunitDemo.class,null,null);
-    }
+//    public static void main(String[] args) {
+//        run(JunitDemo.class,null,null);
+//    }
 
     public static void run(Class classes,String s, Map<String,testcases> map) {
         List<String> list=new ArrayList<String>();

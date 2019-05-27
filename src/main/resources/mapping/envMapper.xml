@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hejianzhang.dao.envMapper">
+  <resultMap id="BaseResultMap" type="com.hejianzhang.model.env">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="envname" jdbcType="VARCHAR" property="envname" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="envdesc" jdbcType="VARCHAR" property="envdesc" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="envdomain" jdbcType="VARCHAR" property="envdomain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, envname, tag, envdesc, param, ip, envdomain
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_env
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_env
+    where envname = #{envname,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_env
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_env
+     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hejianzhang.model.env">
+    insert into t_env (id, envname, tag, 
+      envdesc, param, ip, 
+      envdomain)
+    values (#{id,jdbcType=INTEGER}, #{envname,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{envdesc,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{envdomain,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hejianzhang.model.env">
+    insert into t_env
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="envname != null">
+        envname,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="envdesc != null">
+        envdesc,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="envdomain != null">
+        envdomain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="envname != null">
+        #{envname,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="envdesc != null">
+        #{envdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="envdomain != null">
+        #{envdomain,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hejianzhang.model.env">
+    update t_env
+    <set>
+      <if test="envname != null">
+        envname = #{envname,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="envdesc != null">
+        envdesc = #{envdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="envdomain != null">
+        envdomain = #{envdomain,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hejianzhang.model.env">
+    update t_env
+    set envname = #{envname,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      envdesc = #{envdesc,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      envdomain = #{envdomain,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
